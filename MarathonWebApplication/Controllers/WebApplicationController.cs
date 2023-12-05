@@ -11,8 +11,13 @@ namespace Marathon.WebApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> CreateAccount(string Name, string Lastname, string Surname, string Email, string Password)
+        public async Task<ActionResult> CreateAccount(string Name, string Lastname, string Surname, string Email, string Password, string ConfirmedPassword)
         {
+            if (Password != ConfirmedPassword)
+            {
+                return BadRequest("Passwords aren't the same.");
+            }
+
             try
             {
                 _ = new User()
