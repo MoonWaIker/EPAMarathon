@@ -11,14 +11,18 @@ namespace Marathon.WebApplication.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> CreateAccount(string Email, string Password)
+        public async Task<ActionResult> CreateAccount(string Name, string Lastname, string Surname, string Email, string Password)
         {
             try
             {
                 _ = new User()
                 {
+                    Name = Name,
+                    Lastname = Lastname,
+                    Surname = Surname,
                     Email = Email,
-                    Password = Password
+                    Password = Password,
+                    SignUpDate = DateOnly.FromDateTime(DateTime.Now)
                 };
 
                 return Ok();
