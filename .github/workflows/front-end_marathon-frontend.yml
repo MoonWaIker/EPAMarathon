@@ -31,7 +31,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: node-app
-          path: .
+          path: ./Front-end/AngularProject/dist/angular-project
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,4 +53,4 @@ jobs:
           app-name: 'marathon-frontend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7790A4556DD746A9BD1BCBB883868A17 }}
-          package: ./Front-end/AngularProject/dist/angular-project
+          package: .
