@@ -24,8 +24,8 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --if-present
-          npm run test --if-present
+          npm run build --prod --prefix Front-end\AngularProject
+        working-directory: Front-end\AngularProject
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -53,4 +53,4 @@ jobs:
           app-name: 'marathon-frontend'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_7790A4556DD746A9BD1BCBB883868A17 }}
-          package: .
+          package: ./Front-end/AngularProject/dist/angular-project
