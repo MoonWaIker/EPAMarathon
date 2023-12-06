@@ -24,7 +24,7 @@ jobs:
       - name: npm install, build, and test
         run: |
           npm install
-          npm run build --prod --prefix Front-end\AngularProject
+          npm run build --prod
         working-directory: Front-end\AngularProject
 
       - name: Upload artifact for deployment job
