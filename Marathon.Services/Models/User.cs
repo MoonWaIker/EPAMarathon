@@ -1,8 +1,16 @@
-﻿namespace Marathon.Services.Models
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Marathon.Services.Models
 {
+    [PrimaryKey(nameof(Email))]
     public class User
     {
+        public string id { get; set; } = string.Empty;
+
+        [NotMapped]
         private readonly string name = string.Empty;
+
         public string Name
         {
             get => name;
@@ -12,7 +20,9 @@
             }
         }
 
+        [NotMapped]
         private readonly string lastname = string.Empty;
+
         public string Lastname
         {
             get => lastname;
@@ -22,7 +32,9 @@
             }
         }
 
+        [NotMapped]
         private readonly string surname = string.Empty;
+
         public string Surname
         {
             get => surname;
@@ -33,7 +45,9 @@
         }
 
         // TODO should be better validation
+        [NotMapped]
         private readonly string email = string.Empty;
+
         public required string Email
         {
             get => email;
@@ -43,7 +57,9 @@
             }
         }
 
+        [NotMapped]
         private readonly string password = string.Empty;
+
         public required string Password
         {
             get => password;

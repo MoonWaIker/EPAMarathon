@@ -1,15 +1,18 @@
+using Marathon.Interfaces.Services;
 using Marathon.Services.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Marathon.WebApplication.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class WebApplicationController(ILogger<WebApplicationController> logger) : ControllerBase
+    public class WebApplicationController(ILogger<WebApplicationController> logger, IDataBase dataBase) : ControllerBase
     {
         [HttpPost("/CreateAccount")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> CreateAccount(string Name, string Lastname, string Surname, string Email, string Password, string ConfirmedPassword)
         {
@@ -20,7 +23,7 @@ namespace Marathon.WebApplication.Controllers
 
             try
             {
-                _ = new User()
+                User user = new()
                 {
                     Name = Name,
                     Lastname = Lastname,
@@ -30,11 +33,17 @@ namespace Marathon.WebApplication.Controllers
                     SignUpDate = DateOnly.FromDateTime(DateTime.Now)
                 };
 
+                dataBase.AddUser(user);
+
                 return Ok();
             }
             catch (ArgumentNullException ex)
             {
                 return BadRequest(ex.Message);
+            }
+            catch (DbUpdateException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {

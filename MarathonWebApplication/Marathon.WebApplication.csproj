@@ -12,6 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Marathon.Infrastructure\Marathon.Infrastructure.csproj" />
+    <ProjectReference Include="..\Marathon.Interfaces\Marathon.Interfaces.csproj" />
     <ProjectReference Include="..\Marathon.Services\Marathon.Services.csproj" />
   </ItemGroup>
 
